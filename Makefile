@@ -7,9 +7,7 @@ CC := gcc
 # CFLAGS := -Wall -Wextra -Werror -g3
 CFLAGS := -Wall -Wextra -Werror
 
-LIBS := -lreadline -Llib/libft -lft
-
-INCLUDE := -I include
+INCLUDE := -I include -I libft
 
 #Según el subject:
 # El Makefile debe verificar la existerncia de la variable de entorno $HOSTTYPE, si no existe o se asigna con lo siguiente
@@ -19,60 +17,49 @@ endif
 
 SRC_DIR		:= src
 OBJ_DIR		:= obj
-UTILS_DIR	:= utils
 
 # SOURCES
-SOURCES :=	
-
-# UTILS
-UTILITIES := 
-
-ALL_UTILS := $(UTILITIES)
-
-UTILS := $(addprefix $(UTILS_DIR)/, $(ALL_UTILS))
+SOURCES :=	ft_malloc.c
 
 SRCS := $(addprefix $(SRC_DIR)/, $(SOURCES))
 
-OBJS := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
+OBJ := $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 NAME := libft_malloc_${HOSTTYPE}.so
+LINK := libft_malloc.so
+
+all: lib_ft $(OBJ_DIR) $(NAME)
 
 print:
 	@echo Mi nombre es: [$(HOSTTYPE)]
 	@echo Mi nombre es: [$(NAME)]
 
-all: $(OBJ_DIR) $(NAME)
-
 $(NAME): $(OBJ)
-	$(AR) -rcs $(CFLAGS) $(NAME) $(OBJ)
+	cp libft/libft.a $(NAME)
+	$(AR) -rcs $(NAME) $(OBJ)
+	ln -s $(NAME) $(LINK)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/$(UTILS_DIR)
-	mkdir -p $(OBJ_DIR)/$(UTILS_DIR)/env
-	mkdir -p $(OBJ_DIR)/$(UTILS_DIR)/free
-	mkdir -p $(OBJ_DIR)/$(UTILS_DIR)/array
-	mkdir -p $(OBJ_DIR)/built-ins
-	mkdir -p $(OBJ_DIR)/parser
-	mkdir -p $(OBJ_DIR)/redirection
-	mkdir -p $(OBJ_DIR)/signals
-	mkdir -p $(OBJ_DIR)/executor
 
-$(LIBFT):
-	$(MAKE) -C lib/libft
+lib_ft:
+	$(MAKE) -C libft
 
 clean:
-	$(MAKE) clean -C lib/libft
+	$(MAKE) clean -C libft
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) fclean -C lib/libft
-	rm -f $(NAME)
+	$(MAKE) fclean -C libft
+	rm -f $(NAME) $(LINK)
+
+run_test:
+	$(CC) $(CFLAGS) test/main.c -L. -lft_malloc -I include -I libft
 
 re: fclean all
 
-.PHONY: all fclean clean re
+.PHONY: all print fclean lib_ft clean re run_test
 # .SILENT: all fclean clean re $(NAME)

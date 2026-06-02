@@ -2,7 +2,7 @@ CC := cc
 
 CFLAGS := -Wall -Wextra -Werror -O2
 
-INCLUDE := -I ./
+INCLUDE := -I .
 
 OBJ_DIR		:= obj
 

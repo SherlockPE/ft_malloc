@@ -1,0 +1,9 @@
+# Object files
+*.o
+
+# Library
+*.a
+*.so
+
+# executables
+a.out
