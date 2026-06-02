@@ -6,7 +6,7 @@
 
 // Within the mandatory part, you are allowed to use the following functions:
 // ◦ mmap(2)
-// ◦ munmap(2)
+// ◦ munmap(2) --> deletes the mappings for the specified address range (enntiendo que con esto hago el free)
 // ◦ getpagesize under OSX or sysconf(_SC_PAGESIZE) under linux
 // ◦ getrlimit(2)
 // The authorized functions within your libft (write(2) for example)

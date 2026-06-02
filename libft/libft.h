@@ -6,7 +6,7 @@
 /*   By: flopez-r <flopez-r@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 11:53:14 by albartol          #+#    #+#             */
-/*   Updated: 2024/09/04 13:36:22 by flopez-r         ###   ########.fr       */
+/*   Updated: 2026/06/02 15:15:44 by flopez-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 // get_next_line
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 # ifndef OPEN_MAX
